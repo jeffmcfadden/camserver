@@ -45,3 +45,17 @@
     ./configure --arch=armel --target-os=linux --enable-gpl --enable-libx264 --enable-nonfree --enable-libfaac --enable-libmp3lame
     make -j4
     sudo make install
+  
+### Postgresql
+    
+    sudo apt-get install postgresql postgresql-contrib libpq-dev    
+    sudo -i -u postgres
+    createuser -s -P rails
+    exit
+
+    sudo vim /etc/postgresql/9.4/main/pg_hba.conf
+
+    # change all the 'peer' to 'md5' NOT THE LOCAL ONE, LEAVE TO TRUST OR EVERYTHING BREAKS
+
+    sudo service postgresql restart
+    
