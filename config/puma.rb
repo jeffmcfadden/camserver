@@ -51,7 +51,7 @@ prune_bundler
 rackup      DefaultRackup
 
 directory '/www/camserver'
-bind "unix:///www/camserver/pids/puma.lightstock.sock"
+bind "unix:///www/camserver/pids/puma.sock"
 state_path "/www/camserver/pids/puma.state"
 pidfile "/www/camserver/pids/puma.pid"
 stdout_redirect '/www/camserver/log/puma.stdout.log', '/www/camserver/log/puma.stderr.log', true
