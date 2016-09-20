@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920192534) do
+ActiveRecord::Schema.define(version: 20160920210432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,11 @@ ActiveRecord::Schema.define(version: 20160920192534) do
     t.boolean  "image_06_stored_privately"
     t.string   "image_06_type"
     t.datetime "occurred_at"
+    t.boolean  "processed",                  default: false
+    t.string   "data_directory"
+    t.index ["camera_id", "occurred_at"], name: "index_motion_events_on_camera_id_and_occurred_at", using: :btree
     t.index ["camera_id"], name: "index_motion_events_on_camera_id", using: :btree
+    t.index ["occurred_at"], name: "index_motion_events_on_occurred_at", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

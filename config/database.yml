@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: camserver2_production
-  username: camserver2
+  username: <%= ENV['CAMSERVER2_DATABASE_USERNAME'] %>
   password: <%= ENV['CAMSERVER2_DATABASE_PASSWORD'] %>
