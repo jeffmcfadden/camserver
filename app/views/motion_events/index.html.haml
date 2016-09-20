@@ -1,4 +1,16 @@
 
+- @motion_events.each_slice( 4 ) do |slice|
+  .row
+    - slice.each do |motion_event|
+      .col-md-3
+        .motion_event
+          
+          .meta
+            %span.motion_event_id
+              #{motion_event.id}
+            %span.motion_event_occurred_at
+              #{motion_event.occurred_at.strftime("%b %-d,%Y %H:%M:%S")}
+    
 
 .row
   .col-md-12.text-center

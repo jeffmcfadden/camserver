@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920190615) do
+ActiveRecord::Schema.define(version: 20160920192534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20160920190615) do
 
   create_table "motion_events", force: :cascade do |t|
     t.integer  "camera_id"
-    t.datetime "event_occured_at"
     t.boolean  "favorite",                   default: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
@@ -74,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160920190615) do
     t.text     "image_06_original_filename"
     t.boolean  "image_06_stored_privately"
     t.string   "image_06_type"
+    t.datetime "occurred_at"
     t.index ["camera_id"], name: "index_motion_events_on_camera_id", using: :btree
   end
 
