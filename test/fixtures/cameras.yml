@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  camera_type: 1
+  ip_address: MyString
+  username: MyString
+  password: MyString
+  port: MyString
+
+two:
+  name: MyString
+  camera_type: 1
+  ip_address: MyString
+  username: MyString
+  password: MyString
+  port: MyString

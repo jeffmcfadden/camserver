@@ -1,0 +1,11 @@
+%h1 Cameras
+
+.row
+  .col-md-12.text-right
+    = link_to "New Camera", [:new, :camera], class: "btn btn-primary"
+
+%table.table
+  - @cameras.each do |camera|
+    %tr
+      %td
+        = link_to camera.name, camera

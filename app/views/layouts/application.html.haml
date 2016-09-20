@@ -2,9 +2,25 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Camserver2
+    %title CAMSERVER
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    .container-fluid
+      = render partial: "navbar"
+    
+      - if notice
+        .row
+          .col-md-12
+            .alert.alert-danger
+              #{notice}
+          
+      - if alert
+        .row
+          .col-md-12
+            .alert.alert-danger
+              #{alert}
+      
+
+      = yield

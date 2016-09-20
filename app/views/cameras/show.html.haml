@@ -1,0 +1,29 @@
+%h1 #{@camera.name}
+
+.row
+  .col-md-12.text-right
+    = link_to "Edit Camera", [:edit, @camera]
+
+.row
+  .col-md-12
+    .dl
+      .dt
+        Name
+      .dd
+        #{@camera.name}
+        
+      .dt
+        IP
+      .dd
+        #{@camera.ip_address}        
+        
+      .dt
+        Port
+      .dd
+        #{@camera.port}        
+        
+      .dt
+        Username
+      .dd
+        #{@camera.username}        
+        

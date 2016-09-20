@@ -1,0 +1,31 @@
+.row
+  .col-md-12
+  
+    = form_for camera, method: :post do |f|
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: "form-control"
+        
+      .form-group
+        = f.label :camera_type
+        = f.select :camera_type, Camera.camera_types.keys.to_a, {}, class: "form-control"
+        
+      .form-group
+        = f.label :ip_address
+        = f.text_field :ip_address, class: "form-control"
+
+      .form-group
+        = f.label :port
+        = f.text_field :port, class: "form-control"
+
+      .form-group
+        = f.label :username
+        = f.text_field :username, class: "form-control"
+
+      .form-group
+        = f.label :password
+        = f.password_field :password, class: "form-control"
+        
+      .row
+        .col-md-12
+          = f.submit :save, class: "btn btn-primary"

@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+## Other things to install
 
-* Ruby version
+(Assuming you're running this on an RPi)
 
-* System dependencies
 
-* Configuration
+### LFTP
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    `sudo apt-get install ncurses-dev`
+    `wget http://lftp.yar.ru/ftp/lftp-4.7.3.tar.gz`
+    `tar -zxvf lftp-4.7.3.tar.gz`
+    `cd lftp-4.7.3`
+    `./configure --without-gnutls --with-openssl`
+    `make -j4`
+    `sudo make install`
