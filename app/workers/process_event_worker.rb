@@ -2,7 +2,10 @@ class ProcessEventWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'default'
   
-  def perform(camera_id)
-    # do something
+  def perform(motion_event_id)
+    
+    @motion_event = MotionEvent.find(motion_event_id)
+    @motion_event.process_event_directory!
+    
   end
 end
