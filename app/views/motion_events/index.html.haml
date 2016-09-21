@@ -1,4 +1,10 @@
 
+.row
+  .col-md-12
+    - Camera.order( :name ).each do |camera|
+      = link_to camera.name, motion_events_path( camera_id: camera.id )
+      |
+
 - @motion_events.each_slice( 4 ) do |slice|
   .row{ style: "margin-bottom: 1em;" }
     - slice.each do |motion_event|
