@@ -45,7 +45,7 @@ class CloneCameraCardWorker
   def create_events_from_camera_card_clone
     Rails.logger.debug "create_events_from_camera_card_clone"
     
-    Find.find(self.camera_files_clone_directory) do |f|
+    Find.find(@camera_dir) do |f|
       begin
         if f.match(/\.avi\Z/)
           base_filename = f.split( '/' ).last.gsub( '.avi', '' ).gsub( 'alarm_', '' ).gsub( 'MD', '' ).gsub( 'SD', '' )
@@ -62,7 +62,7 @@ class CloneCameraCardWorker
 
           event_time = Time.local( year, month, day, hour, minute, second )
 
-          this_event_directory = self.camera_events_directory + '/' + event_time.strftime( "%Y-%m-%d_%H%M%S" )
+          this_event_directory = @events_dir + '/' + event_time.strftime( "%Y-%m-%d_%H%M%S" )
 
           Dir.mkdir( "#{this_event_directory}" ) unless Dir.exists?( "#{this_event_directory}" )
 
