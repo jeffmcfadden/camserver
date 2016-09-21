@@ -25,6 +25,8 @@ class CloneCameraCardWorker
     
     clone_camera_card
     create_events_from_camera_card_clone
+    
+    CloneCameraCardWorker.perform_in( 2.minutes, camera_id)
   end
   
   def clone_camera_card
@@ -73,7 +75,7 @@ class CloneCameraCardWorker
           end
 
           Rails.logger.debug "    Moving file to new directory"
-          Rails.logger.debug "    {f}   =>   #{this_event_directory}"
+          Rails.logger.debug "    #{f}   =>   #{this_event_directory}"
           
           FileUtils.mv f, this_event_directory
         end
