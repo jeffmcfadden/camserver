@@ -1,3 +1,6 @@
+require 'find'
+require 'fileutils'
+
 class CloneCameraCardWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'low'
