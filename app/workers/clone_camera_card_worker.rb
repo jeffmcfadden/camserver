@@ -21,6 +21,7 @@ class CloneCameraCardWorker
     Dir.mkdir( "#{@events_dir}" ) unless Dir.exists?( "#{@events_dir}" )
     
     clone_camera_card
+    create_events_from_camera_card_clone
   end
   
   def clone_camera_card
@@ -36,8 +37,41 @@ class CloneCameraCardWorker
     if last_exit_status != 0
       #puts stdout
       #puts stderr
-      puts output
-      raise "Clone failed with exit code #{last_exit_status}."
+      Rails.logger.debug "Clone returned an error: \n\n#{output}"
+      # raise "Clone failed with exit code #{last_exit_status}."
+    end
+  end
+  
+  def create_events_from_camera_card_clone
+    Rails.logger.debug "create_events_from_camera_card_clone"
+    
+    Find.find(self.camera_files_clone_directory) do |f|
+      begin
+        if f.match(/\.avi\Z/)
+          base_filename = f.split( '/' ).last.gsub( '.avi', '' ).gsub( 'alarm_', '' ).gsub( 'MD', '' ).gsub( 'SD', '' )
+
+          Rails.logger.debug "  #{f}"
+          Rails.logger.debug "  #{base_filename}"
+
+          year  = base_filename[0,4]
+          month = base_filename[4,2]
+          day   = base_filename[6,2]
+          hour   = base_filename[9,2]
+          minute = base_filename[11,2]
+          second = base_filename[13,2]
+
+          event_time = Time.local( year, month, day, hour, minute, second )
+
+          this_event_directory = self.camera_events_directory + '/' + event_time.strftime( "%Y-%m-%d_%H%M%S" )
+
+          Dir.mkdir( "#{this_event_directory}" ) unless Dir.exists?( "#{this_event_directory}" )
+
+          Rails.logger.debug "    Moving file to new directory"
+          FileUtils.mv f, this_event_directory
+        end
+      rescue Exception => ex
+       Rails.logger.debug "    Error: #{ex.to_s}"
+      end
     end
   end
   
