@@ -39,7 +39,7 @@ gem "haml-rails", "~> 0.9"
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
-gem 'kaminari'
+gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'master'
 
 gem 'sidekiq'
 
