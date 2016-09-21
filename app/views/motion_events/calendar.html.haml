@@ -1,0 +1,22 @@
+
+.row
+  .col-md-12
+
+    %table.table
+
+      %tr
+        %th
+          Day
+        - (0..23).each do |h|
+          %th
+            = h
+
+      - (0..7).each do |d|
+        - t = d.days.ago.in_time_zone
+        %tr
+          %td
+            = t.strftime("%a, %b %-d")
+    
+          - MotionEvent.group_by_hour( :occurred_at, time_zone: "Arizona", range: t.beginning_of_day..t.end_of_day ).count.each do |k,v|
+            %td
+              = link_to v, motion_events_path( hour: k.to_i )        

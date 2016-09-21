@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   end
     
   resources :cameras
-  resources :motion_events
+  resources :motion_events do
+    collection do
+      get '/calendar' => 'motion_events#calendar', as: :calendar
+    end
+  end
   
   
   root 'home#index'

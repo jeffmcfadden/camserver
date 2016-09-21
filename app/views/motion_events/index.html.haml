@@ -1,4 +1,12 @@
 
+- if @start_range.present?
+  .row
+    .col-md-12.text-center
+      %strong
+        = @start_range.in_time_zone.strftime("%b %-d,%Y %H:%M:%S")
+        — 
+        = @end_range.in_time_zone.strftime("%b %-d,%Y %H:%M:%S")
+
 .row
   .col-md-12
     - Camera.order( :name ).each do |camera|

@@ -241,6 +241,8 @@ GEM
     formatador (0.2.5)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    groupdate (2.5.0)
+      activesupport (>= 3)
     haml (4.0.7)
       tilt
     haml-rails (0.9.0)
@@ -406,6 +408,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   figaro
+  groupdate
   haml
   haml-rails (~> 0.9)
   jbuilder (~> 2.5)

@@ -43,6 +43,8 @@ gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'ma
 
 gem 'sidekiq'
 
+gem 'groupdate'
+
 # For sidekiq web:
 # Master because https://github.com/mperham/sidekiq/issues/2839
 gem 'sinatra', github: 'sinatra'
