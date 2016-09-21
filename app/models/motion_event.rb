@@ -43,7 +43,7 @@ class MotionEvent < ApplicationRecord
   private 
 
   def asset_key( asset_name )
-    "motion_events/#{self.id}_#{self.event_occurred_at.strftime("%Y-%m-%d-%H-%M-%S")}/#{asset_name}_#{random_string}"
+    "motion_events/#{self.id}_#{self.occurred_at.strftime("%Y-%m-%d-%H-%M-%S")}/#{asset_name}_#{random_string}"
   end
   
   def random_string
