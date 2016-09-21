@@ -8,11 +8,10 @@
           .meta
             %span.motion_event_id
               #{motion_event.id}
-              
             %span.motion_event_occurred_at
               #{motion_event.occurred_at.strftime("%b %-d,%Y %H:%M:%S")}
     
 
 .row
   .col-md-12.text-center
-    - # = paginate @motion_events
+    = paginate @motion_events
