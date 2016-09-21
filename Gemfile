@@ -43,6 +43,10 @@ gem 'kaminari'
 
 gem 'sidekiq'
 
+# For sidekiq web:
+# Master because https://github.com/mperham/sidekiq/issues/2839
+gem 'sinatra', github: 'sinatra'
+
 group :production do
   gem 'therubyracer'
 end

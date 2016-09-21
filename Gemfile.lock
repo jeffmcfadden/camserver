@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/sinatra/sinatra.git
+  revision: af6dad2a6c31e31617712b15f455b2a3d3eb1c06
+  specs:
+    sinatra (2.0.0.beta2)
+      mustermann (= 1.0.0.beta2)
+      rack (~> 2.0)
+      rack-protection (= 2.0.0.beta2)
+      tilt (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -271,6 +281,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
+    mustermann (1.0.0.beta2)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -280,6 +291,8 @@ GEM
     pkg-config (1.1.7)
     puma (3.6.0)
     rack (2.0.1)
+    rack-protection (2.0.0.beta2)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.0.1)
@@ -398,6 +411,7 @@ DEPENDENCIES
   rails (~> 5.0.0, >= 5.0.0.1)
   sass-rails (~> 5.0)
   sidekiq
+  sinatra!
   spring
   spring-watcher-listen (~> 2.0.0)
   therubyracer
