@@ -48,7 +48,7 @@ class CloneCameraCardWorker
   def create_events_from_camera_card_clone
     Rails.logger.debug "create_events_from_camera_card_clone"
     
-    Find.find(@camera_dir) do |f|
+    Find.find(@clone_dir) do |f|
       begin
         if f.match(/\.avi\Z/)
           base_filename = f.split( '/' ).last.gsub( '.avi', '' ).gsub( 'alarm_', '' ).gsub( 'MD', '' ).gsub( 'SD', '' )
@@ -72,6 +72,8 @@ class CloneCameraCardWorker
           MotionEvent.create( { camera: @camera, occurred_at: event_time, processed: false, data_directory: this_event_directory } )
 
           Rails.logger.debug "    Moving file to new directory"
+          Rails.logger.debug "    {f}   =>   #{this_event_directory}"
+          
           FileUtils.mv f, this_event_directory
         end
       rescue Exception => ex
