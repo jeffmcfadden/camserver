@@ -1,4 +1,6 @@
 class MotionEvent < ApplicationRecord
+  include ShellCommandable
+  
   belongs_to :camera
   
   paginates_per 40
