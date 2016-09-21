@@ -1,6 +1,6 @@
 class ProcessEventWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'events'
+  sidekiq_options queue: 'default'
   
   def perform(camera_id)
     # do something

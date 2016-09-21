@@ -1,6 +1,6 @@
 class CloneCameraCardWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'cardclone'
+  sidekiq_options queue: 'low'
   
   include ShellCommandable
   
