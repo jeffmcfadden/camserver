@@ -71,7 +71,7 @@ class CloneCameraCardWorker
 
           unless Dir.exists?( "#{this_event_directory}" )
             Dir.mkdir( "#{this_event_directory}" ) 
-            @motion_event MotionEvent.create( { camera: @camera, occurred_at: event_time, processed: false, data_directory: this_event_directory } )
+            @motion_event = MotionEvent.create( { camera: @camera, occurred_at: event_time, processed: false, data_directory: this_event_directory } )
           end
 
           Rails.logger.debug "    Moving file to new directory"
