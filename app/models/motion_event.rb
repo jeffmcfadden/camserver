@@ -43,6 +43,8 @@ class MotionEvent < ApplicationRecord
   
   def process_event_directory!
     event_directory = self.data_directory
+    
+    raise "Event Directory does not exist" unless Dir.exists?( "#{event_directory}" )
 
     f = Dir.glob( "#{event_directory}/*.avi" ).first
 
@@ -97,9 +99,9 @@ class MotionEvent < ApplicationRecord
     self.import_file_to_anaconda_column( "#{event_directory}/image-005.jpeg", :image_05, { acl: "public-read" } )
     self.import_file_to_anaconda_column( "#{event_directory}/image-006.jpeg", :image_06, { acl: "public-read" } )
 
-    # Rails.logger.debug "Cleaning up the directory"
-    # FileUtils.rm_rf("#{d}") if d.strip != "" && d.length > 12 #Tiny safeguard
-    # self.update_attributes( processed: true )
+    Rails.logger.debug "Cleaning up the directory"
+    FileUtils.rm_rf("#{event_directory}") if event_directory.strip != "" && event_directory.length > 12 #Tiny safeguard
+    self.update_attributes( processed: true )
 
     Rails.logger.debug "    Done with #{this_video_file}"
   end
