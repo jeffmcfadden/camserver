@@ -90,14 +90,47 @@ class MotionEvent < ApplicationRecord
     image_filenames = ["image-001.jpeg", "image-002.jpeg", "image-003.jpeg", "image-004.jpeg", "image-005.jpeg"]
     video_filenames = [transcoded_filename.split( "/" ).last]
 
-    self.import_file_to_anaconda_column( transcoded_filename, :video_01, { acl: "public-read" } )
+    begin
+      self.import_file_to_anaconda_column( transcoded_filename, :video_01, { acl: "public-read" } )
+    rescue Errno::ENOENT => ex
+      Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{transcoded_filename} | #{ex}"
+    end
+        
+    begin
+      self.import_file_to_anaconda_column( "#{event_directory}/image-001.jpeg", :image_01, { acl: "public-read" } )
+    rescue Errno::ENOENT => ex
+      Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-001.jpeg | #{ex}"
+    end
+
+    begin
+      self.import_file_to_anaconda_column( "#{event_directory}/image-002.jpeg", :image_02, { acl: "public-read" } )
+    rescue Errno::ENOENT => ex
+      Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-002.jpeg | #{ex}"
+    end
+
+    begin
+      self.import_file_to_anaconda_column( "#{event_directory}/image-003.jpeg", :image_03, { acl: "public-read" } )
+    rescue Errno::ENOENT => ex
+      Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-003.jpeg | #{ex}"
+    end
     
-    self.import_file_to_anaconda_column( "#{event_directory}/image-001.jpeg", :image_01, { acl: "public-read" } )
-    self.import_file_to_anaconda_column( "#{event_directory}/image-002.jpeg", :image_02, { acl: "public-read" } )
-    self.import_file_to_anaconda_column( "#{event_directory}/image-003.jpeg", :image_03, { acl: "public-read" } )
-    self.import_file_to_anaconda_column( "#{event_directory}/image-004.jpeg", :image_04, { acl: "public-read" } )
-    self.import_file_to_anaconda_column( "#{event_directory}/image-005.jpeg", :image_05, { acl: "public-read" } )
-    self.import_file_to_anaconda_column( "#{event_directory}/image-006.jpeg", :image_06, { acl: "public-read" } )
+    begin
+      self.import_file_to_anaconda_column( "#{event_directory}/image-004.jpeg", :image_04, { acl: "public-read" } )
+    rescue Errno::ENOENT => ex
+      Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-004.jpeg | #{ex}"
+    end
+    
+    begin
+      self.import_file_to_anaconda_column( "#{event_directory}/image-005.jpeg", :image_05, { acl: "public-read" } )
+    rescue Errno::ENOENT => ex
+      Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-005.jpeg | #{ex}"
+    end
+    
+    begin
+      self.import_file_to_anaconda_column( "#{event_directory}/image-006.jpeg", :image_06, { acl: "public-read" } )
+    rescue Errno::ENOENT => ex
+      Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-006.jpeg | #{ex}"
+    end
 
     Rails.logger.debug "Cleaning up the directory"
     FileUtils.rm_rf("#{event_directory}") if event_directory.strip != "" && event_directory.length > 12 #Tiny safeguard
