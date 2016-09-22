@@ -19,6 +19,8 @@
             = link_to "Cameras", [:cameras]
           %li
             = link_to "Calendar", calendar_motion_events_path
+          %li
+            = link_to "Sidekiq", "/sidekiq"
     
       %ul.nav.navbar-nav.navbar-right
         - if current_user.nil?
