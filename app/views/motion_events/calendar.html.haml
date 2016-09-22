@@ -1,3 +1,16 @@
+.row
+  .col-md-12
+    - Camera.order( :name ).each do |camera|
+      = link_to camera.name, calendar_motion_events_path( camera_id: camera.id )
+      |
+
+.row
+  .col-md-12.text-center
+    %h3
+      - if params[:camera_id].present?
+        = Camera.find(params[:camera_id]).name
+      - else
+        All Cameras
 
 .row
   .col-md-12
@@ -17,6 +30,11 @@
           %td
             = t.strftime("%a, %b %-d")
     
-          - MotionEvent.group_by_hour( :occurred_at, time_zone: "Arizona", range: t.beginning_of_day..t.end_of_day ).count.each do |k,v|
+          - if params[:camera_id].present?
+            - query = MotionEvent.group_by_period( :hour, :occurred_at, { time_zone: "Arizona", range: t.beginning_of_day..t.end_of_day } ).where( camera_id: params[:camera_id] ).count
+          - else
+            - query = MotionEvent.group_by_hour( :occurred_at, time_zone: "Arizona", range: t.beginning_of_day..t.end_of_day ).count
+           
+          - query.each do |k,v|
             %td
               = link_to v, motion_events_path( hour: k.to_i )        
