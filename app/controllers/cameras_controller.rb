@@ -28,6 +28,8 @@ class CamerasController < ApplicationController
   end
   
   def create_card_clone_worker
+    @camera = Camera.find(params[:id])
+    
     CloneCameraCardWorker.perform_async(params[:id])
     flash[:notice] = "Worker enqueued"
     redirect_to @camera
