@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     
   resources :cameras do
     member do
-      post '/create_card_clone_worker', to: :create_card_clone_worker, as: :create_card_clone_worker
+      post '/create_card_clone_worker', to: "cameras#create_card_clone_worker", as: :create_card_clone_worker
     end
   end
   
