@@ -9,7 +9,12 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
     
-  resources :cameras
+  resources :cameras do
+    member do
+      post '/create_card_clone_worker', to: :create_card_clone_worker, as: :create_card_clone_worker
+    end
+  end
+  
   resources :motion_events do
     collection do
       get '/calendar' => 'motion_events#calendar', as: :calendar
