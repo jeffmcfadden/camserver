@@ -44,6 +44,7 @@ gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'ma
 gem 'sidekiq'
 
 gem 'groupdate'
+gem 'chartkick', '>= 2.2.2'
 
 # For sidekiq web:
 # Master because https://github.com/mperham/sidekiq/issues/2839

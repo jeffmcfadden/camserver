@@ -1,0 +1,20 @@
+
+- @motion_events.each_slice( 4 ) do |slice|
+  .row{ style: "margin-bottom: 1em;" }
+    - slice.each do |motion_event|
+      .col-sm-3.col-xs-6
+        .motion_event
+          = link_to motion_event do
+            %img.img{ src: (motion_event.image_01_url rescue ""), style: "width: 100%;" }
+          
+          .meta
+            %span.motion_event_id
+              #{motion_event.id}
+            = link_to motion_event do
+              %span.motion_event_occurred_at
+                #{motion_event.occurred_at.in_time_zone.strftime("%b %-d,%Y %H:%M:%S")}
+    
+
+.row
+  .col-md-12.text-center
+    = paginate @motion_events

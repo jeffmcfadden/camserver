@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   
   resources :motion_events do
     collection do
-      get '/calendar' => 'motion_events#calendar', as: :calendar
+      get '/calendar',               to: 'motion_events#calendar', as: :calendar
+      get '/selected_from_timeline', to: 'motion_events#selected_from_timeline', as: :selected_from_timeline
     end
   end
   

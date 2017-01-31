@@ -25,5 +25,22 @@ class MotionEventsController < ApplicationController
     @motion_event = MotionEvent.find(params[:id])
   end
     
+  def calendar
+    @camera_event_timeline = []
+    MotionEvent.order(:camera_id).includes(:camera).where("occurred_at > ?", 30.hours.ago).each do |me|
+      @camera_event_timeline << [me.camera.name, me.occurred_at, me.occurred_at + 30.seconds]
+    end
+  end
+  
+  def selected_from_timeline
+    @start_range = Time.parse( params[:occurred_at] ) - 20.minutes
+    @end_range   = Time.parse( params[:occurred_at] ) + 20.minutes
+    @camera = Camera.find_by( name: params[:camera] )
+    
+    @motion_events = @camera.motion_events
+    @motion_events = @motion_events.where( occurred_at: @start_range..@end_range )
+    @motion_events = @motion_events.order( occurred_at: :desc ).page( params[:page] ).per( params[:per] )
+    
+  end
   
 end
