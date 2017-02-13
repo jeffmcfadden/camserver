@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     collection do
       get '/calendar',               to: 'motion_events#calendar', as: :calendar
       get '/selected_from_timeline', to: 'motion_events#selected_from_timeline', as: :selected_from_timeline
+      get '/favorites',              to: 'motion_events#favorites', as: :favorites
+    end
+    
+    member do
+      post '/favorite', to: 'motion_events#favorite', as: :favorite
+      post '/unfavorite', to: 'motion_events#unfavorite', as: :unfavorite
     end
   end
   

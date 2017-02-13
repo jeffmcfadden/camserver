@@ -1,4 +1,7 @@
 
+%h1
+  Favorites
+
 - if @start_range.present?
   .row
     .col-md-12.text-center
@@ -10,10 +13,8 @@
 .row
   .col-md-12
     - Camera.order( :name ).each do |camera|
-      = link_to camera.name, motion_events_path( camera_id: camera.id )
+      = link_to camera.name, favorites_motion_events_path( camera_id: camera.id )
       |
-
-    = link_to "Favorites", favorites_motion_events_path
 
 - @motion_events.each_slice( 4 ) do |slice|
   .row{ style: "margin-bottom: 1em;" }
@@ -34,7 +35,3 @@
 .row
   .col-md-12.text-center
     = paginate @motion_events
-    
-    
-:javascript
-  setTimeout( function(){ document.location.reload(true); }, 180 * 1000)

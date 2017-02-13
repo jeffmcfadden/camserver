@@ -6,7 +6,7 @@
 
 .row
   .col-md-12
-    = timeline @camera_event_timeline, library: {groupByRowLabel: false }, height: "#{(Camera.count * 75)}px"
+    = timeline @camera_event_timeline, library: {groupByRowLabel: false, tooltip: { isHtml: true } }, height: "#{(Camera.count * 75)}px"
 
     :coffeescript
     

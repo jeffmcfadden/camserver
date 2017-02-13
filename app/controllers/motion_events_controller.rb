@@ -20,9 +20,32 @@ class MotionEventsController < ApplicationController
     @motion_events = @motion_events.order( occurred_at: :desc ).page( params[:page] ).per( params[:per] )
   end
   
-  def show
+  def favorites
+    @motion_events = MotionEvent.favorites
     
+    if params[:camera_id].present?
+      @motion_events = @motion_events.where( camera_id: params[:camera_id] )
+    end
+    
+    @motion_events = @motion_events.order( occurred_at: :desc ).page( params[:page] ).per( params[:per] )
+  end
+  
+  def show
     @motion_event = MotionEvent.find(params[:id])
+  end
+  
+  def favorite
+    @motion_event = MotionEvent.find(params[:id])
+    @motion_event.update_attributes( favorite: true )
+    
+    redirect_to @motion_event
+  end
+  
+  def unfavorite
+    @motion_event = MotionEvent.find(params[:id])
+    @motion_event.update_attributes( favorite: false )
+    
+    redirect_to @motion_event
   end
     
   def calendar
@@ -40,7 +63,6 @@ class MotionEventsController < ApplicationController
     @motion_events = @camera.motion_events
     @motion_events = @motion_events.where( occurred_at: @start_range..@end_range )
     @motion_events = @motion_events.order( occurred_at: :desc ).page( params[:page] ).per( params[:per] )
-    
   end
   
 end

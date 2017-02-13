@@ -13,6 +13,9 @@ class MotionEvent < ApplicationRecord
   anaconda_for :image_05, base_key: :image_05_asset_key
   anaconda_for :image_06, base_key: :image_06_asset_key
   
+  scope :favorites, -> { where( favorite: true ) }
+  scope :not_favorites, -> { where( favorite: false ) }
+  
   def video_01_asset_key
     asset_key( "video_01")
   end
