@@ -73,4 +73,10 @@ class MotionEventsController < ApplicationController
     @motion_events = @motion_events.order( occurred_at: :desc ).page( params[:page] ).per( params[:per] )
   end
   
+  def enqueue_purge_old_events_worker
+    PurgeOldEventsWorker.perform_async
+    flash[:notice] = "Worker enqueued"
+    redirect_to motion_events_path
+  end
+  
 end

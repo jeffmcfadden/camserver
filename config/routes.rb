@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get '/calendar',               to: 'motion_events#calendar', as: :calendar
       get '/selected_from_timeline', to: 'motion_events#selected_from_timeline', as: :selected_from_timeline
       get '/favorites',              to: 'motion_events#favorites', as: :favorites
+      post '/enqueue_purge_old_events_worker', to: 'motion_events#enqueue_purge_old_events_worker', as: :enqueue_purge_old_events_worker
     end
     
     member do

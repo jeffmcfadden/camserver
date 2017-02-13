@@ -59,3 +59,8 @@
           - query.each do |k,v|
             %td
               = link_to v, motion_events_path( hour: k.to_i )        
+              
+
+.row
+  .col-md-12
+    = link_to "Enqueue Purge Old Events", enqueue_purge_old_events_worker_motion_events_path, method: :post
