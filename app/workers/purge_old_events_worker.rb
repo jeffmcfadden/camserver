@@ -2,7 +2,7 @@ class PurgeOldEventsWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'low'
   
-  def perform(camera_id)
+  def perform
     begin
       
       MotionEvent.not_favorites.where( "occurred_at < ?", 65.days.ago ).find_each do |me|
