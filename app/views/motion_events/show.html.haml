@@ -11,6 +11,11 @@
       = link_to favorite_motion_event_path( @motion_event ), method: :post do
         %i.fa.fa-star-o
         
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    = link_to motion_event_path( @motion_event ), method: :delete, data: { confirm: "Are you sure?" } do
+      %i.fa.fa-trash
+        
 .row
   .col-md-8.col-md-offset-2
     %video{ controls: "controls", style: "width: 100%;" }

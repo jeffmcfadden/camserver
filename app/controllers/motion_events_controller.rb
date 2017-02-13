@@ -34,6 +34,14 @@ class MotionEventsController < ApplicationController
     @motion_event = MotionEvent.find(params[:id])
   end
   
+  def destroy
+    @motion_event = MotionEvent.find(params[:id])
+    
+    @motion_event.destroy
+    
+    redirect_to motion_events_path
+  end
+  
   def favorite
     @motion_event = MotionEvent.find(params[:id])
     @motion_event.update_attributes( favorite: true )
