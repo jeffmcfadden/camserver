@@ -1,12 +1,12 @@
 class PurgeOldEventsWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'low'
+  sidekiq_options queue: 'purge'
   
   def perform
     begin
       
       MotionEvent.not_favorites.where( "occurred_at < ?", 65.days.ago ).find_each do |me|
-        me.destroy
+        PurgeEventWorker.perform_async( me.id )
       end
       
     rescue StandardError => e

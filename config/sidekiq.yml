@@ -3,6 +3,7 @@
   - critical
   - default
   - low
+  - purge
 
 :production:
   :pidfile: /www/camserver/pids/sidekiq.pid
