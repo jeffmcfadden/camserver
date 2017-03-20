@@ -21,6 +21,10 @@ class CamerasController < ApplicationController
   def update
     @camera = Camera.find(params[:id])
     
+    @camera.update_attributes( camera_params )
+    
+    flash[:notice] = "Updated"
+    redirect_to @camera
   end
   
   def show
@@ -38,7 +42,7 @@ class CamerasController < ApplicationController
   private
   
   def camera_params
-    params.require( :camera ).permit( :name, :camera_type, :ip_address, :port, :username, :password )
+    params.require( :camera ).permit( :name, :camera_type, :ip_address, :port, :username, :password, :ftp_storage_dir )
   end
   
 
