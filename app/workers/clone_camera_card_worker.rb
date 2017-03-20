@@ -34,7 +34,7 @@ class CloneCameraCardWorker
     
     @camera.ftp_storage_dir = "/IPCamera" unless @camera.ftp_storage_dir.present?
     
-    ftp_command = "lftp -p #{@camera.port} -u #{@camera.username},#{@camera.password} -e \"set ftp:passive-mode false; mirror -v --Move #{@camera.ftp_storage_dir} #{@clone_dir}; bye\" #{@camera.ip_address}"
+    ftp_command = "lftp -p #{@camera.port} -u \"#{@camera.username},#{@camera.password}\" -e \"set ftp:passive-mode false; mirror -v --Move #{@camera.ftp_storage_dir} #{@clone_dir}; bye\" #{@camera.ip_address}"
     
     Rails.logger.debug "  #{ftp_command}"
     
@@ -109,24 +109,8 @@ class CloneCameraCardWorker
       begin
         if f.match(/\.mp4\Z/)
           
-          Rails.logger.debug "  ctime: #{f.ctime}"
+          event_time = File.new(f).mtime
           
-          break
-          
-          base_filename = f.split( '/' ).last.gsub( '.avi', '' ).gsub( 'alarm_', '' ).gsub( 'MD', '' ).gsub( 'SD', '' )
-
-          Rails.logger.debug "  #{f}"
-          Rails.logger.debug "  #{base_filename}"
-
-          year  = base_filename[0,4]
-          month = base_filename[4,2]
-          day   = base_filename[6,2]
-          hour   = base_filename[9,2]
-          minute = base_filename[11,2]
-          second = base_filename[13,2]
-
-          event_time = Time.local( year, month, day, hour, minute, second )
-
           this_event_directory = @events_dir + '/' + event_time.strftime( "%Y-%m-%d_%H%M%S" )
 
           unless Dir.exists?( "#{this_event_directory}" )
@@ -137,7 +121,7 @@ class CloneCameraCardWorker
           Rails.logger.debug "    Moving file to new directory"
           Rails.logger.debug "    #{f}   =>   #{this_event_directory}"
           
-          FileUtils.mv f, this_event_directory
+          FileUtils.mv f, "#{this_event_directory}/#{event_time.strftime( "%Y%m%d_%H%M%S" )}.mp4"
           
           ProcessEventWorker.perform_in( 10.seconds, @motion_event.id ) if @motion_event.present?
         end

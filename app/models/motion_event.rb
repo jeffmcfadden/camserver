@@ -60,7 +60,13 @@ class MotionEvent < ApplicationRecord
     Rails.logger.debug "  #{this_video_file}"
 
     base_filename = f.split( '/' ).last.gsub( '.avi', '' ).gsub( 'SDalarm_', '' ).gsub( 'MDalarm_', '' ).gsub( 'alarm_', '' )
-    transcoded_filename = this_video_file.gsub( 'avi', 'mp4' )
+    
+    if camera.amcrest_ipm721?
+      transcoded_filename = "#{this_video_file}-transcoded.mp4"
+    else
+      transcoded_filename = this_video_file.gsub( 'avi', 'mp4' )
+    end
+    
 
 
     transcode_cmd = "ffmpeg -y -i #{this_video_file} -acodec libfaac -b:a 128k -vcodec copy #{transcoded_filename}"
