@@ -32,7 +32,9 @@ class CloneCameraCardWorker
   def clone_camera_card
     Rails.logger.debug "  clone_camera_card"
     
-    ftp_command = "lftp -p #{@camera.port} -u #{@camera.username},#{@camera.password} -e \"set ftp:passive-mode false; mirror -v --Move /IPCamera #{@clone_dir}; bye\" #{@camera.ip_address}"
+    @camera.ftp_storage_dir = "/IPCamera" unless @camera.ftp_storage_dir.present?
+    
+    ftp_command = "lftp -p #{@camera.port} -u #{@camera.username},#{@camera.password} -e \"set ftp:passive-mode false; mirror -v --Move #{@camera.ftp_storage_dir} #{@clone_dir}; bye\" #{@camera.ip_address}"
     
     Rails.logger.debug "  #{ftp_command}"
     
@@ -49,6 +51,19 @@ class CloneCameraCardWorker
   
   def create_events_from_camera_card_clone
     Rails.logger.debug "create_events_from_camera_card_clone"
+    
+    if @camera.foscam_9821?
+      create_events_from_camera_card_clone_foscam_9821
+    elsif @camera.amcrest_ipm721?
+      create_events_from_camera_card_clone_amcrest_ipm721
+    else
+      Rails.logger.info "Camera type unknown. Skipping. (#{@camera.camera_type})"
+    end
+
+  end
+  
+  def create_events_from_camera_card_clone_foscam_9821
+    Rails.logger.debug "create_events_from_camera_card_clone_foscam_9821"
     
     Find.find(@clone_dir) do |f|
       begin
@@ -85,6 +100,52 @@ class CloneCameraCardWorker
        Rails.logger.debug "    Error: #{ex.to_s}"
       end
     end
+  end
+  
+  def create_events_from_camera_card_clone_amcrest_ipm721
+    Rails.logger.debug "create_events_from_camera_card_clone_amcrest_ipm721"
+    
+    Find.find(@clone_dir) do |f|
+      begin
+        if f.match(/\.mp4\Z/)
+          
+          Rails.logger.debug "  ctime: #{f.ctime}"
+          
+          break
+          
+          base_filename = f.split( '/' ).last.gsub( '.avi', '' ).gsub( 'alarm_', '' ).gsub( 'MD', '' ).gsub( 'SD', '' )
+
+          Rails.logger.debug "  #{f}"
+          Rails.logger.debug "  #{base_filename}"
+
+          year  = base_filename[0,4]
+          month = base_filename[4,2]
+          day   = base_filename[6,2]
+          hour   = base_filename[9,2]
+          minute = base_filename[11,2]
+          second = base_filename[13,2]
+
+          event_time = Time.local( year, month, day, hour, minute, second )
+
+          this_event_directory = @events_dir + '/' + event_time.strftime( "%Y-%m-%d_%H%M%S" )
+
+          unless Dir.exists?( "#{this_event_directory}" )
+            Dir.mkdir( "#{this_event_directory}" ) 
+            @motion_event = MotionEvent.create( { camera: @camera, occurred_at: event_time, processed: false, data_directory: this_event_directory } )
+          end
+
+          Rails.logger.debug "    Moving file to new directory"
+          Rails.logger.debug "    #{f}   =>   #{this_event_directory}"
+          
+          FileUtils.mv f, this_event_directory
+          
+          ProcessEventWorker.perform_in( 10.seconds, @motion_event.id ) if @motion_event.present?
+        end
+      rescue Exception => ex
+       Rails.logger.debug "    Error: #{ex.to_s}"
+      end
+    end
+    
   end
   
   

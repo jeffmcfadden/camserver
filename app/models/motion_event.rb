@@ -49,7 +49,11 @@ class MotionEvent < ApplicationRecord
     
     raise "Event Directory does not exist" unless Dir.exists?( "#{event_directory}" )
 
-    f = Dir.glob( "#{event_directory}/*.avi" ).first
+    if camera.amcrest_ipm721?
+      f = Dir.glob( "#{event_directory}/*.mp4" ).first
+    else
+      f = Dir.glob( "#{event_directory}/*.avi" ).first
+    end
 
     this_video_file = f
 
