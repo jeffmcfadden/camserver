@@ -1,6 +1,6 @@
 class ProcessEventWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'default'
+  sidekiq_options queue: 'default', retry: 3
   
   def perform(motion_event_id)
     
