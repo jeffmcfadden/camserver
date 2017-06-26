@@ -35,7 +35,7 @@ gem 'figaro'
 # gem 'devise'
 gem 'devise', git: 'https://github.com/gogovan/devise.git', branch: 'rails-5.1'
 
-gem 'anaconda'
+gem 'anaconda', '~> 2.1.2'
 
 gem 'haml'
 gem "haml-rails", "~> 0.9"
