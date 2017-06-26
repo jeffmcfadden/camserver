@@ -69,7 +69,7 @@ class MotionEvent < ApplicationRecord
     
 
 
-    transcode_cmd = "ffmpeg -y -i #{this_video_file} -acodec libfaac -b:a 128k -vcodec copy #{transcoded_filename}"
+    transcode_cmd = "ffmpeg -y -i #{this_video_file} -acodec libfdk_aac -b:a 128k -vcodec copy #{transcoded_filename}"
     Rails.logger.debug "       #{transcode_cmd}"
 
     # last_exit_status, stdout, stderr = exec_with_timeout(transcode_cmd, desc = "", false, true,  120)
