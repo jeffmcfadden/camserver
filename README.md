@@ -31,6 +31,8 @@
     
 ### LibFAAC: http://owenashurst.com/?p=242
 
+I did the libfdk_aac instead on the baby linux box
+
     
 ### Now Reboot (Seriously)
 
@@ -59,3 +61,4 @@
 
     sudo service postgresql restart
     
+### Had to setup all the stupid systemd service files.
