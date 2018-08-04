@@ -152,6 +152,8 @@ class CloneCameraCardWorker
             FileUtils.mv f, "#{this_event_directory}/#{event_time.strftime( "%Y%m%d_%H%M%S" )}.mp4"
           
             ProcessEventWorker.perform_in( 10.seconds, @motion_event.id ) if @motion_event.present?
+          else
+            puts "Ignoring #{f}"
           end
         rescue Exception => ex
          Rails.logger.debug "    Error: #{ex.to_s}"

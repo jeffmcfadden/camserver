@@ -51,6 +51,8 @@ class MotionEvent < ApplicationRecord
 
     if camera.amcrest_ipm721?
       f = Dir.glob( "#{event_directory}/*.mp4" ).first
+    elsif camera.foscam_9821_ftp?
+      f = Dir.glob( "#{event_directory}/*.mkv" ).first
     else
       f = Dir.glob( "#{event_directory}/*.avi" ).first
     end
