@@ -149,7 +149,7 @@ class CloneCameraCardWorker
             Rails.logger.debug "    Moving file to new directory"
             Rails.logger.debug "    #{f}   =>   #{this_event_directory}"
           
-            FileUtils.mv f, "#{this_event_directory}/#{event_time.strftime( "%Y%m%d_%H%M%S" )}.mp4"
+            FileUtils.mv f, "#{this_event_directory}/#{event_time.strftime( "%Y%m%d_%H%M%S" )}.mkv"
           
             ProcessEventWorker.perform_in( 10.seconds, @motion_event.id ) if @motion_event.present?
           else
