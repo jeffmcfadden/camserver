@@ -130,6 +130,34 @@ class CloneCameraCardWorker
       end
     end
     
+    def create_events_from_camera_card_clone_foscam_9821_ftp
+      Rails.logger.debug "create_events_from_camera_card_clone_foscam_9821_ftp"
+    
+      Find.find(@clone_dir) do |f|
+        begin
+          if f.match(/\.mkv/)
+          
+            event_time = File.new(f).mtime
+          
+            this_event_directory = @events_dir + '/' + event_time.strftime( "%Y-%m-%d_%H%M%S" )
+
+            unless Dir.exists?( "#{this_event_directory}" )
+              Dir.mkdir( "#{this_event_directory}" ) 
+              @motion_event = MotionEvent.create( { camera: @camera, occurred_at: event_time, processed: false, data_directory: this_event_directory } )
+            end
+
+            Rails.logger.debug "    Moving file to new directory"
+            Rails.logger.debug "    #{f}   =>   #{this_event_directory}"
+          
+            FileUtils.mv f, "#{this_event_directory}/#{event_time.strftime( "%Y%m%d_%H%M%S" )}.mp4"
+          
+            ProcessEventWorker.perform_in( 10.seconds, @motion_event.id ) if @motion_event.present?
+          end
+        rescue Exception => ex
+         Rails.logger.debug "    Error: #{ex.to_s}"
+        end
+      end
+    
   end
   
   
