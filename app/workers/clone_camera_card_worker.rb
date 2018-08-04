@@ -157,8 +157,6 @@ class CloneCameraCardWorker
          Rails.logger.debug "    Error: #{ex.to_s}"
         end
       end
-    
+    end
   end
-  
-  
 end
