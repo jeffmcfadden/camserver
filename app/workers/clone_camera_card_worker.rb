@@ -56,6 +56,8 @@ class CloneCameraCardWorker
       create_events_from_camera_card_clone_foscam_9821
     elsif @camera.amcrest_ipm721?
       create_events_from_camera_card_clone_amcrest_ipm721
+    elsif @camera.foscam_9821_ftp?
+      create_events_from_camera_card_clone_foscam_9821_ftp
     else
       Rails.logger.info "Camera type unknown. Skipping. (#{@camera.camera_type})"
     end
