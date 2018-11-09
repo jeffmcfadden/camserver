@@ -18,12 +18,22 @@ class ImportEventsFromMailWorker
 
     Rails.logger.debug "Checking mail..."
 
+    process_mail
+
+    ImportEventsFromMailWorker.perform_in( 1.minute )
+  end  
+  
+  def process_mail
     subjects = ["motion alarm", "IPCamera alarm"]
 
     subjects.each do |subject|
+      Rails.logger.debug "  Processing messages with subject #{subject}..."
 
       begin
         Mail.find_and_delete( keys: "SUBJECT \"#{subject}\"" ) do |m|
+          
+          Rails.logger.debug "    Processing message #{m.subject}"
+          
       
           event_date_string = m.subject.split( " " ).last rescue ""
       
@@ -36,24 +46,24 @@ class ImportEventsFromMailWorker
 
           event_date = Time.new( event_date_year, event_date_month, event_date_day , event_date_hour, event_date_minute, event_date_second )
 
-          printf "Mail date: #{m.date}\n"
-          printf "Event date: #{event_date}\n"
+          # printf "Mail date: #{m.date}\n"
+          # printf "Event date: #{event_date}\n"
 
           matches = /.*\((.*)\).*/.match(m.subject)
           
           camera_name = matches[1]
           
-          puts "Camera name: #{camera_name}"
+          Rails.logger.debug "      Camera name: #{camera_name}"
 
           @camera = Camera.find_by name: camera_name
           
-          puts "Creating motion event..."
+          Rails.logger.debug "      Creating motion event..."
           @motion_event = @camera.motion_events.create occurred_at: event_date, processed: true
 
-          printf "Saving attachments..."
+          Rails.logger.debug "      Saving attachments..."
           n = 0
           m.attachments.each_with_index do |attachment, i|
-            puts "  #{i + 1}"
+            Rails.logger.debug "          #{i + 1}"
             
             Dir.mktmpdir {|dir|
               filename = File.join( dir, "event_image.jpg")
@@ -66,6 +76,9 @@ class ImportEventsFromMailWorker
               end
             }
           end
+          
+          
+          Rails.logger.debug "      done with message."
         end
 
       rescue Exception => e
@@ -73,7 +86,6 @@ class ImportEventsFromMailWorker
         Rails.logger.debug "Will retry."
       end
     end
-
-    ImportEventsFromMailWorker.perform_in( 1.minute )
-  end  
+  end
+  
 end
