@@ -33,7 +33,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'figaro'
 
 # gem 'devise'
-gem 'devise', git: 'https://github.com/gogovan/devise.git', branch: 'rails-5.1'
+gem 'devise'
 
 gem 'anaconda', '~> 2.1.2'
 
