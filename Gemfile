@@ -35,8 +35,6 @@ gem 'figaro'
 # gem 'devise'
 gem 'devise'
 
-gem 'anaconda', '>= 5.0.7', git: 'https://github.com/ForgeApps/anaconda.git', branch: 'master'
-
 gem 'haml'
 gem "haml-rails"
 
@@ -48,6 +46,9 @@ gem 'sidekiq'
 
 gem 'groupdate'
 gem 'chartkick', '>= 2.2.2'
+
+# For Active Storage:
+gem "aws-sdk-s3"
 
 # For sidekiq web:
 # Master because https://github.com/mperham/sidekiq/issues/2839

@@ -5,44 +5,46 @@ class MotionEvent < ApplicationRecord
   
   paginates_per 40
   
-  anaconda_for :video_01, base_key: :video_01_asset_key
-  anaconda_for :image_01, base_key: :image_01_asset_key
-  anaconda_for :image_02, base_key: :image_02_asset_key
-  anaconda_for :image_03, base_key: :image_03_asset_key
-  anaconda_for :image_04, base_key: :image_04_asset_key
-  anaconda_for :image_05, base_key: :image_05_asset_key
-  anaconda_for :image_06, base_key: :image_06_asset_key
+  has_one_attached :video_01
+  has_one_attached :image_01
+  has_one_attached :image_02
+  has_one_attached :image_03
+  has_one_attached :image_04
+  has_one_attached :image_05
+  has_one_attached :image_06
   
   scope :favorites, -> { where( favorite: true ) }
   scope :not_favorites, -> { where( favorite: false ) }
-  
-  def video_01_asset_key
-    asset_key( "video_01")
+
+  def video_01_url
+    self.video_01.attached? ? self.video_01.service_url : ""
   end
   
-  def image_01_asset_key
-    asset_key( "image_01")
+  def image_01_url
+    self.image_01.attached? ? self.image_01.service_url : ""
+  end
+
+  def image_02_url
+    self.image_02.attached? ? self.image_02.service_url : ""
+  end
+
+  def image_03_url
+    self.image_03.attached? ? self.image_03.service_url : ""
+  end
+
+  def image_04_url
+    self.image_04.attached? ? self.image_04.service_url : ""
+  end
+
+  def image_05_url
+    self.image_05.attached? ? self.image_05.service_url : ""
+  end
+
+  def image_06_url
+    self.image_06.attached? ? self.image_06.service_url : ""
   end
   
-  def image_02_asset_key
-    asset_key( "image_02")
-  end
   
-  def image_03_asset_key
-    asset_key( "image_03")
-  end
-  
-  def image_04_asset_key
-    asset_key( "image_04")
-  end
-  
-  def image_05_asset_key
-    asset_key( "image_05")
-  end
-  
-  def image_06_asset_key
-    asset_key( "image_06")
-  end
   
   def process_event_directory!
     event_directory = self.data_directory
@@ -106,43 +108,43 @@ class MotionEvent < ApplicationRecord
     video_filenames = [transcoded_filename.split( "/" ).last]
 
     begin
-      self.import_file_to_anaconda_column( transcoded_filename, :video_01, { acl: "public-read" } )
+      self.video_01.attach(io: File.open(transcoded_filename), filename: transcoded_filename, content_type: "video/mpeg")
     rescue Errno::ENOENT => ex
       Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{transcoded_filename} | #{ex}"
     end
         
     begin
-      self.import_file_to_anaconda_column( "#{event_directory}/image-001.jpeg", :image_01, { acl: "public-read" } )
+      self.image_01.attach(io: File.open("#{event_directory}/image-001.jpeg"), filename: "image-001.jpeg", content_type: "image/jpeg")
     rescue Errno::ENOENT => ex
       Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-001.jpeg | #{ex}"
     end
 
     begin
-      self.import_file_to_anaconda_column( "#{event_directory}/image-002.jpeg", :image_02, { acl: "public-read" } )
+      self.image_02.attach(io: File.open("#{event_directory}/image-002.jpeg"), filename: "image-002.jpeg", content_type: "image/jpeg")
     rescue Errno::ENOENT => ex
       Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-002.jpeg | #{ex}"
     end
 
     begin
-      self.import_file_to_anaconda_column( "#{event_directory}/image-003.jpeg", :image_03, { acl: "public-read" } )
+      self.image_03.attach(io: File.open("#{event_directory}/image-003.jpeg"), filename: "image-003.jpeg", content_type: "image/jpeg")
     rescue Errno::ENOENT => ex
       Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-003.jpeg | #{ex}"
     end
     
     begin
-      self.import_file_to_anaconda_column( "#{event_directory}/image-004.jpeg", :image_04, { acl: "public-read" } )
+      self.image_04.attach(io: File.open("#{event_directory}/image-004.jpeg"), filename: "image-004.jpeg", content_type: "image/jpeg")
     rescue Errno::ENOENT => ex
       Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-004.jpeg | #{ex}"
     end
     
     begin
-      self.import_file_to_anaconda_column( "#{event_directory}/image-005.jpeg", :image_05, { acl: "public-read" } )
+      self.image_05.attach(io: File.open("#{event_directory}/image-005.jpeg"), filename: "image-005.jpeg", content_type: "image/jpeg")
     rescue Errno::ENOENT => ex
       Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-005.jpeg | #{ex}"
     end
     
     begin
-      self.import_file_to_anaconda_column( "#{event_directory}/image-006.jpeg", :image_06, { acl: "public-read" } )
+      self.image_06.attach(io: File.open("#{event_directory}/image-006.jpeg"), filename: "image-006.jpeg", content_type: "image/jpeg")
     rescue Errno::ENOENT => ex
       Rails.logger.error "    Motion Event #{self.id}. File failed to upload to S3. #{event_directory}/image-006.jpeg | #{ex}"
     end

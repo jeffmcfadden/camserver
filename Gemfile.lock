@@ -28,16 +28,6 @@ GIT
       rack-protection (= 2.0.5)
       tilt (~> 2.0)
 
-GIT
-  remote: https://github.com/ForgeApps/anaconda.git
-  revision: f7f0d00cb38f4d3e289bdf8a2f36490eeafeaa51
-  branch: master
-  specs:
-    anaconda (5.0.9)
-      aws-sdk (~> 2)
-      javascript_dlog-rails (~> 1.0.1)
-      jquery-fileupload-rails (~> 0.4.7)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -88,13 +78,19 @@ GEM
     autoprefixer-rails (9.6.1)
       execjs
     aws-eventstream (1.0.3)
-    aws-sdk (2.11.314)
-      aws-sdk-resources (= 2.11.314)
-    aws-sdk-core (2.11.314)
-      aws-sigv4 (~> 1.0)
+    aws-partitions (1.189.0)
+    aws-sdk-core (3.59.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
+      aws-partitions (~> 1.0)
+      aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.314)
-      aws-sdk-core (= 2.11.314)
+    aws-sdk-kms (1.23.0)
+      aws-sdk-core (~> 3, >= 3.58.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.45.0)
+      aws-sdk-core (~> 3, >= 3.58.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.1)
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
     bcrypt (3.1.13)
@@ -157,15 +153,9 @@ GEM
       ruby_parser (~> 3.5)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    javascript_dlog-rails (1.0.1)
-      railties (>= 3.1)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jmespath (1.4.0)
-    jquery-fileupload-rails (0.4.7)
-      actionpack (>= 3.1)
-      railties (>= 3.1)
-      sass (>= 3.2)
     jquery-rails (4.3.5)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -292,7 +282,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  anaconda (>= 5.0.7)!
+  aws-sdk-s3
   bootstrap-sass (~> 3.3.6)
   byebug
   capistrano (>= 3.9.0)
