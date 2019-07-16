@@ -1,33 +1,36 @@
-%h1 
-  #{@motion_event.camera.name rescue ""}
-  #{@motion_event.occurred_at.in_time_zone.strftime("%b %-d,%Y %H:%M:%S") rescue ""}
-  
 .row
-  .col-md-8.col-md-offset-2.text-right
-    - if @motion_event.favorite?
-      = link_to unfavorite_motion_event_path( @motion_event ), method: :post do
-        %i.fa.fa-star
-    - else
-      = link_to favorite_motion_event_path( @motion_event ), method: :post do
-        %i.fa.fa-star-o
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2.col-lg-6.col-lg-offset-3
+
+    %h1 
+      #{@motion_event.camera.name rescue ""}
+      #{@motion_event.occurred_at.in_time_zone.strftime("%b %-d,%Y %H:%M:%S") rescue ""}
+  
+    .row
+      .col-xs-12.text-right
+        - if @motion_event.favorite?
+          = link_to unfavorite_motion_event_path( @motion_event ), method: :post do
+            %i.fa.fa-star
+        - else
+          = link_to favorite_motion_event_path( @motion_event ), method: :post do
+            %i.fa.fa-star-o
         
     
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    = link_to motion_event_path( @motion_event ), method: :delete, data: { confirm: "Are you sure?" } do
-      %i.fa.fa-trash
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        = link_to motion_event_path( @motion_event ), method: :delete, data: { confirm: "Are you sure?" } do
+          %i.fa.fa-trash
     
-- if @motion_event.video_01.attached?
-  .row
-    .col-md-8.col-md-offset-2
-      %video{ controls: "controls", style: "width: 100%;" }
-        %source{ src: "#{@motion_event.video_01_url}"}
+    - if @motion_event.video_01.attached?
+      .row
+        .col-xs-12
+          %video{ controls: "controls", style: "width: 100%;" }
+            %source{ src: "#{@motion_event.video_01_url}"}
 
-.row  
-  .col-md-8.col-md-offset-2
+    .row  
+      .col-xs-12
   
-    .image_set{ id: "image_set_#{@motion_event.id}", data: { controller: "image-set", image_set: { cycle_interval: "300" } } }
-      .images
-        - (1..6).each do |n|
-          - img_url = @motion_event.send("image_0#{n}_url".to_sym)
-          - if img_url.present?
-            %img.img{ src: "#{img_url}" }
+        .image_set{ id: "image_set_#{@motion_event.id}", data: { controller: "image-set", image_set: { cycle_interval: "300" } } }
+          .images
+            - (1..6).each do |n|
+              - img_url = @motion_event.send("image_0#{n}_url".to_sym)
+              - if img_url.present?
+                %img.img{ src: "#{img_url}" }
