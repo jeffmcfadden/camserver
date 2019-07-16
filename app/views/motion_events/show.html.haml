@@ -26,7 +26,8 @@
   .col-md-8.col-md-offset-2
   
     .image_set{ id: "image_set_#{@motion_event.id}" }
-      - (1..6).each do |n|
-        - img_url = @motion_event.send("image_0#{n}_url".to_sym)
-        - if img_url.present?
-          %img.img.img-responsive{ src: "#{img_url}" }
+      .images
+        - (1..6).each do |n|
+          - img_url = @motion_event.send("image_0#{n}_url".to_sym)
+          - if img_url.present?
+            %img.img{ src: "#{img_url}" }

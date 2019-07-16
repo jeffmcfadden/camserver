@@ -70,7 +70,7 @@ class ImportEventsFromMailWorker
               File.open(filename, "w+b", 0644) {|f| f.write attachment.body.decoded}
               
               begin
-                self.send("image_0#{i + 1}".to_sym).attach(io: File.open(filename), filename: "image_0#{i + 1}.jpg", content_type: "image/jpeg")
+                @motion_event.send("image_0#{i + 1}".to_sym).attach(io: File.open(filename), filename: "image_0#{i + 1}.jpg", content_type: "image/jpeg")
               rescue Errno::ENOENT => ex
                 Rails.logger.error "File failed to upload to S3. #{filename} | #{ex}"
               end
