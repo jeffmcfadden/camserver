@@ -109,7 +109,7 @@ class CloneCameraCardWorker
     
     Find.find(@clone_dir) do |f|
       begin
-        if f.match(/\.mp4/)
+        if f[-4,4] == ".mp4"
           
           event_time = File.new(f).mtime
           
