@@ -14,6 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require anaconda
+// require anaconda
 //= require chartkick
 //= require_tree .
