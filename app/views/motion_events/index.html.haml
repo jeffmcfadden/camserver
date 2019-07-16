@@ -20,13 +20,16 @@
     - slice.each do |motion_event|
       .col-sm-3.col-xs-6
         .motion_event
-          = link_to motion_event do
-            %img.img{ src: (motion_event.image_01_url rescue ""), style: "width: 100%;", title: "Motion Event #{motion_event.id}" }
-          
-          .meta
+          %figure.figure
+        
             = link_to motion_event do
-              %span.motion_event_occurred_at
-                #{motion_event.occurred_at.in_time_zone.strftime("%a %B %-d, %Y %-l:%M%P")}
+              %img.figure-img.img-fluid.rounded{ src: (motion_event.image_01_url rescue ""), style: "width: 100%;", title: "Motion Event #{motion_event.id}" }
+          
+            %figcaption.figure-caption
+              %small
+                = link_to motion_event do
+                  %span.motion_event_occurred_at
+                    #{motion_event.occurred_at.in_time_zone.strftime("%a %B %-d, %Y %-l:%M%P")}
     
 
 .row

@@ -18,8 +18,9 @@
     
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    .container-fluid
-      = render partial: "navbar"
+    = render partial: "navbar"
+    
+    .container
     
       - if notice
         .row

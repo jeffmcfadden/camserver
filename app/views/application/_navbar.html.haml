@@ -1,31 +1,26 @@
-%nav.navbar.navbar-default
-  .container-fluid
-    .navbar-header
-      %button.navbar-toggle.collapsed{ data: {toggle: "collapse", target: "#bs-example-navbar-collapse-1" }}
-        %span.sr-only
-          Toggle Navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.navbar-brand{ href: "/" }
-        CAMSERVER
-      
-    .collapse.navbar-collapse#bs-example-navbar-collapse-1
-      - if current_user.present?
-        %ul.nav.navbar-nav
-          %li
-            = link_to "All Events", [:motion_events]
-          %li
-            = link_to "Cameras", [:cameras]
-          %li
-            = link_to "Calendar", calendar_motion_events_path
-          %li
-            = link_to "Sidekiq", "/sidekiq"
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  %a.navbar-brand{ href: "/" }
+    CAMSERVER
+  
+  %button.navbar-toggler{ type: "button", data: { toggle: "collapse", target: "#navbarContent" } }
+    %span.navbar-toggler-icon
     
-      %ul.nav.navbar-nav.navbar-right
-        - if current_user.nil?
-          %li
-            = link_to "Sign In", new_user_session_path
-        - else
-          %li
-            = link_to "Sign Out", destroy_user_session_path, method: :delete
+  .collapse.navbar-collapse#navbarContent
+    - if current_user.present?
+      %ul.navbar-nav.mr-auto
+        %li.nav-item
+          = link_to "All Events", [:motion_events], class: "nav-link"
+        %li.nav-item
+          = link_to "Cameras", [:cameras], class: "nav-link"
+        %li.nav-item
+          = link_to "Calendar", calendar_motion_events_path, class: "nav-link"
+        %li.nav-item
+          = link_to "Sidekiq", "/sidekiq", class: "nav-link"
+  
+    %ul.nav.navbar-nav.navbar-right
+      - if current_user.nil?
+        %li.nav-item
+          = link_to "Sign In", new_user_session_path, class: "nav-link"
+      - else
+        %li.nav-item
+          = link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link"

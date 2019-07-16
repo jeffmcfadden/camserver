@@ -2,6 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.motion_event {
+  border: 1px solid #EEE;
+  border-radius: .25rem;
+  margin: 0;
+  
+  figure {
+    margin: 0;
+  }
+}
+
 .image_set {
   .images {
     width: 100%;
