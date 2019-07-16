@@ -31,7 +31,7 @@ class MotionEventsController < ApplicationController
   end
   
   def show
-    @motion_event = MotionEvent.find(params[:id]).includes([video_01_attachment: [:blob], image_01_attachment: [:blob], image_02_attachment: [:blob], image_03_attachment: [:blob], image_04_attachment: [:blob], image_05_attachment: [:blob], image_06_attachment: [:blob]])
+    @motion_event = MotionEvent.includes([video_01_attachment: [:blob], image_01_attachment: [:blob], image_02_attachment: [:blob], image_03_attachment: [:blob], image_04_attachment: [:blob], image_05_attachment: [:blob], image_06_attachment: [:blob]]).find(params[:id])
   end
   
   def destroy
