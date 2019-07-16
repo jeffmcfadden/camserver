@@ -38,8 +38,6 @@ gem 'devise'
 gem 'haml'
 gem "haml-rails"
 
-gem 'bootstrap-sass', '~> 3.3.6'
-
 gem 'kaminari', :git => "git://github.com/amatsuda/kaminari.git", :branch => 'master'
 
 gem 'sidekiq'
