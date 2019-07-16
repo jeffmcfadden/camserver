@@ -5,7 +5,7 @@ class MotionEventsController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @motion_events = MotionEvent.all
+    @motion_events = MotionEvent.all.includes([video_01_attachment: [:blob], image_01_attachment: [:blob], image_02_attachment: [:blob], image_03_attachment: [:blob], image_04_attachment: [:blob], image_05_attachment: [:blob], image_06_attachment: [:blob]])
     
     if params[:camera_id].present?
       @motion_events = @motion_events.where( camera_id: params[:camera_id] )
@@ -21,7 +21,7 @@ class MotionEventsController < ApplicationController
   end
   
   def favorites
-    @motion_events = MotionEvent.favorites
+    @motion_events = MotionEvent.favorites.includes([video_01_attachment: [:blob], image_01_attachment: [:blob], image_02_attachment: [:blob], image_03_attachment: [:blob], image_04_attachment: [:blob], image_05_attachment: [:blob], image_06_attachment: [:blob]])
     
     if params[:camera_id].present?
       @motion_events = @motion_events.where( camera_id: params[:camera_id] )
@@ -31,7 +31,7 @@ class MotionEventsController < ApplicationController
   end
   
   def show
-    @motion_event = MotionEvent.find(params[:id])
+    @motion_event = MotionEvent.find(params[:id]).includes([video_01_attachment: [:blob], image_01_attachment: [:blob], image_02_attachment: [:blob], image_03_attachment: [:blob], image_04_attachment: [:blob], image_05_attachment: [:blob], image_06_attachment: [:blob]])
   end
   
   def destroy
@@ -68,7 +68,7 @@ class MotionEventsController < ApplicationController
     @end_range   = Time.parse( params[:occurred_at] ) + 20.minutes
     @camera = Camera.find_by( name: params[:camera] )
     
-    @motion_events = @camera.motion_events
+    @motion_events = @camera.motion_events.includes([video_01_attachment: [:blob], image_01_attachment: [:blob], image_02_attachment: [:blob], image_03_attachment: [:blob], image_04_attachment: [:blob], image_05_attachment: [:blob], image_06_attachment: [:blob]])
     @motion_events = @motion_events.where( occurred_at: @start_range..@end_range )
     @motion_events = @motion_events.order( occurred_at: :desc ).page( params[:page] ).per( params[:per] )
   end

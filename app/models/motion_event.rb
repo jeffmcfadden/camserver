@@ -155,6 +155,21 @@ class MotionEvent < ApplicationRecord
 
     Rails.logger.debug "    Done with #{this_video_file}"
   end
+  
+  def migrate_to_active_storage
+    me = self # Just because I copied from somewhere else
+    ["video_01", "image_01", "image_02", "image_03", "image_04", "image_05", "image_06"].each do |anaconda_column|
+
+      unless me.send(anaconda_column.to_sym).attached?
+        begin
+          blob       = ActiveStorage::Blob.create( key: me.send( "#{anaconda_column}_file_path".to_sym ), filename: me.send( "#{anaconda_column}_filename".to_sym ), metadata: {}, byte_size: me.send( "#{anaconda_column}_size".to_sym ), checksum: "" )
+          attachment = ActiveStorage::Attachment.create( name: "#{anaconda_column}", record_type: "MotionEvent", record_id: me.id, blob_id: blob.id )
+        rescue ActiveRecord::RecordNotUnique => e
+          puts "  Error migrating #{me.id} column #{anaconda_column} — we were using a duplicate key."
+        end
+      end
+    end
+  end
     
   
   private 
