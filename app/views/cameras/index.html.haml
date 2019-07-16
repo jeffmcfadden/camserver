@@ -9,3 +9,11 @@
     %tr
       %td
         = link_to camera.name, camera
+      %td
+        - if camera.sidekiq_worker_running?
+          .badge.badge-pill.badge-success
+            Worker Active
+        - else camera.sidekiq_worker_running?
+          .badge.badge-pill.badge-danger
+            = link_to "Worker Not Found", create_card_clone_worker_camera_path(camera), method: :post, style: "color: #FFF"
+            
