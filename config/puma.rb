@@ -50,8 +50,8 @@ prune_bundler
 
 rackup      DefaultRackup
 
-directory '/www/camserver'
-bind "unix:///www/camserver/pids/puma.sock"
-state_path "/www/camserver/pids/puma.state"
-pidfile "/www/camserver/pids/puma.pid"
-stdout_redirect '/www/camserver/log/puma.stdout.log', '/www/camserver/log/puma.stderr.log', true
+directory '/www/camserver/current'
+bind "unix:///www/camserver/shared/pids/puma.sock"
+state_path "/www/camserver/shared/pids/puma.state"
+pidfile "/www/camserver/shared/pids/puma.pid"
+stdout_redirect '/www/camserver/shared/log/puma.stdout.log', '/www/camserver/shared/log/puma.stderr.log', true
