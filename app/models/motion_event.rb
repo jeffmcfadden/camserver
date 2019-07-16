@@ -166,7 +166,7 @@ class MotionEvent < ApplicationRecord
           filename = me.send( "#{anaconda_column}_filename".to_sym )
           filename = "#{anaconda_column}" if filename.nil?
           
-          blob       = ActiveStorage::Blob.create( key: me.send( "#{anaconda_column}_file_path".to_sym ), filename: filename, metadata: {}, byte_size: me.send( "#{anaconda_column}_size".to_sym ), checksum: "" )
+          blob       = ActiveStorage::Blob.create( key: me.send( "#{anaconda_column}_file_path".to_sym ), filename: filename, metadata: {}, byte_size: me.send( "#{anaconda_column}_size".to_sym ).to_i, checksum: "" )
           attachment = ActiveStorage::Attachment.create( name: "#{anaconda_column}", record_type: "MotionEvent", record_id: me.id, blob_id: blob.id )
         rescue ActiveRecord::RecordNotUnique => e
           puts "  Error migrating #{me.id} column #{anaconda_column} — we were using a duplicate key."
