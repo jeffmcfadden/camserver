@@ -5,6 +5,7 @@ Anaconda.config do |config|
     aws_secret_key: ENV["AWS_SECRET_KEY"] || nil,
     aws_bucket:     ENV["AWS_BUCKET"]     || nil,
     aws_endpoint:   ENV["AWS_ENDPOINT"]   || nil, # example: anaconda-demo.s3-us-west-2.amazonaws.com or s3.amazonaws.com/not.dns.friendly.bucket
+    aws_region:     ENV["AWS_REGION"]     || nil
   }
   config.file_types = {
     audio:    /(\.|\/)(wav|mp3|m4a|aiff|ogg|flac)$/,
