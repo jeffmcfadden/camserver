@@ -15,11 +15,12 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
     = link_to motion_event_path( @motion_event ), method: :delete, data: { confirm: "Are you sure?" } do
       %i.fa.fa-trash
-        
-.row
-  .col-md-8.col-md-offset-2
-    %video{ controls: "controls", style: "width: 100%;" }
-      %source{ src: "#{@motion_event.video_01_url}"}
+    
+- if @motion_event.video_01.attached?
+  .row
+    .col-md-8.col-md-offset-2
+      %video{ controls: "controls", style: "width: 100%;" }
+        %source{ src: "#{@motion_event.video_01_url}"}
 
 .row  
   .col-md-8.col-md-offset-2

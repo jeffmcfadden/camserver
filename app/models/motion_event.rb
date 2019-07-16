@@ -170,6 +170,8 @@ class MotionEvent < ApplicationRecord
           attachment = ActiveStorage::Attachment.create( name: "#{anaconda_column}", record_type: "MotionEvent", record_id: me.id, blob_id: blob.id )
         rescue ActiveRecord::RecordNotUnique => e
           puts "  Error migrating #{me.id} column #{anaconda_column} — we were using a duplicate key."
+        rescue StandardError => e
+          puts "  Error migrating #{me.id} column #{anaconda_column} — #{e}"
         end
       end
     end
