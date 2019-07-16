@@ -16,4 +16,5 @@
 //= require turbolinks
 // require anaconda
 //= require chartkick
+//= require stimulus/init
 //= require_tree .

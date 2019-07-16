@@ -25,7 +25,7 @@
 .row  
   .col-md-8.col-md-offset-2
   
-    .image_set{ id: "image_set_#{@motion_event.id}" }
+    .image_set{ id: "image_set_#{@motion_event.id}", data: { controller: "image-set", image_set: { cycle_interval: "300" } } }
       .images
         - (1..6).each do |n|
           - img_url = @motion_event.send("image_0#{n}_url".to_sym)
