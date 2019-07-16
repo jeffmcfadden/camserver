@@ -6,4 +6,4 @@
   - purge
 
 :production:
-  :pidfile: /www/camserver/pids/sidekiq.pid
+  :pidfile: /www/camserver/shared/pids/sidekiq.pid
