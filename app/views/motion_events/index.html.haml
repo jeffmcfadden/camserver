@@ -14,6 +14,12 @@
       |
 
     = link_to "Favorites", favorites_motion_events_path
+    
+    
+    %span.refresh__countdown#refresh1{ data: { controller: "refresh-countdown", refresh_countdown: { interval: 300 } } }
+      <svg class="progress-ring" width="30" height="30">
+      <circle class="progress-ring__circle" stroke="black" stroke-width="1" fill="#EEE" r="8" cx="15" cy="15"/>
+      </svg>
 
 - @motion_events.each_slice( 4 ) do |slice|
   .row{ style: "margin-bottom: 1em;" }
@@ -35,7 +41,3 @@
 .row
   .col-md-12.text-center
     = paginate @motion_events
-    
-    
-:javascript
-  setTimeout( function(){ document.location.reload(true); }, 180 * 1000)
