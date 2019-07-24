@@ -20,7 +20,12 @@
     load() {
       // console.log( "refresh-countdown#load()")
       
-      this.data.set( "secondsRemaining", this.data.get("interval") )
+      var i = parseInt(this.data.get("interval") )
+      var now = new Date().getTime()
+      var refreshAfter = now + (i * 1000)
+            
+      this.data.set( "secondsRemaining", i )
+      this.data.set( "refreshAfter", refreshAfter )
     }
     
     cycle(){
@@ -29,6 +34,19 @@
       
       c = c - 1
       if (c == 0){
+        this.refresh()
+      }
+      
+      var d = new Date()
+      var now = d.getTime()
+      var refreshAfter = parseInt(this.data.get("refreshAfter"))
+      
+      //console.log( "time: " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() )
+      //console.log( "now: " + now )
+      //console.log( "refreshAfter: " + refreshAfter )
+      //console.log( "now - refreshAfter: " + (now - refreshAfter) )
+      
+      if (now > refreshAfter) {
         this.refresh()
       }
       
