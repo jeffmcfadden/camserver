@@ -93,4 +93,4 @@ Rails.application.configure do
   # config.force_ssl = true
 end
 
-Rails.application.routes.default_url_options = { host: "camserver.mcfadden.io", protocol: 'https' }
+Rails.application.routes.default_url_options[:host] = "camserver.mcfadden.io"
