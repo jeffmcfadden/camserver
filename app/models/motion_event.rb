@@ -1,5 +1,6 @@
 class MotionEvent < ApplicationRecord
   include ShellCommandable
+  include Rails.application.routes.url_helpers
   
   belongs_to :camera
   
@@ -17,34 +18,32 @@ class MotionEvent < ApplicationRecord
   scope :not_favorites, -> { where( favorite: false ) }
 
   def video_01_url
-    self.video_01.attached? ? self.video_01.service_url : ""
+    self.video_01.attached? ? rails_blob_path( self.video_01 ) : ""
   end
   
   def image_01_url
-    self.image_01.attached? ? self.image_01.service_url : ""
+    self.image_01.attached? ? rails_blob_path( self.image_01 ) : ""
   end
 
   def image_02_url
-    self.image_02.attached? ? self.image_02.service_url : ""
+    self.image_02.attached? ? rails_blob_path( self.image_02 ) : ""
   end
 
   def image_03_url
-    self.image_03.attached? ? self.image_03.service_url : ""
+    self.image_03.attached? ? rails_blob_path( self.image_03 ) : ""
   end
 
   def image_04_url
-    self.image_04.attached? ? self.image_04.service_url : ""
+    self.image_04.attached? ? rails_blob_path( self.image_04 ) : ""
   end
 
   def image_05_url
-    self.image_05.attached? ? self.image_05.service_url : ""
+    self.image_05.attached? ? rails_blob_path( self.image_05 ) : ""
   end
 
   def image_06_url
-    self.image_06.attached? ? self.image_06.service_url : ""
+    self.image_06.attached? ? rails_blob_path( self.image_06 ) : ""
   end
-  
-  
   
   def process_event_directory!
     event_directory = self.data_directory
