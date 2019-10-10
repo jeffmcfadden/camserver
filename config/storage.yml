@@ -2,9 +2,19 @@ test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
   
+disk:
+  service: Disk
+  root: /mnt/data/camserver2
+  
 amazon:
   service: S3
   access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
   secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
   region: <%= ENV['AWS_REGION'] %>
   bucket: <%= ENV['AWS_BUCKET'] %>
+  
+production:
+  service: Mirror
+  primary: amazon
+  mirrors:
+    - disk
