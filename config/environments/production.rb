@@ -89,6 +89,8 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   
   config.active_storage.service = :production
-  
+    
   # config.force_ssl = true
 end
+
+Rails.application.routes.default_url_options = { host: "camserver.mcfadden.io", protocol: 'https' }
