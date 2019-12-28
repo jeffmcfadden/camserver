@@ -175,12 +175,12 @@ GEM
     net-scp (2.0.0)
       net-ssh (>= 2.6.5, < 6.0.0)
     net-ssh (5.2.0)
-    nio4r (2.4.0)
+    nio4r (2.5.2)
     nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
-    puma (4.0.1)
+    puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.0.8)
     rack-test (1.1.0)
@@ -294,7 +294,7 @@ DEPENDENCIES
   kaminari!
   listen (~> 3.0.5)
   pg (~> 0.18, >= 0.18.4)
-  puma (~> 4.0)
+  puma (~> 4.3)
   rails (~> 5, >= 5.2.3)
   sassc-rails
   sidekiq
