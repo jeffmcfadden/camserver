@@ -28,7 +28,7 @@ WorkingDirectory=/www/camserver/current
 # If you use rbenv:
 # ExecStart=/bin/bash -lc 'bundle exec sidekiq -e production'
 # If you use the system's ruby:
-ExecStart=/usr/local/bin/bundle exec sidekiq -c 1 -q critical -q default -q low -e production
+ExecStart=/usr/local/bin/bundle exec sidekiq -c 2 -q critical -q default -q low -e production
 User=jeffmcfadden
 Group=jeffmcfadden
 UMask=0002
