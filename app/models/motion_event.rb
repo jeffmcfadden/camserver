@@ -149,7 +149,15 @@ class MotionEvent < ApplicationRecord
     end
 
     Rails.logger.debug "Cleaning up the directory"
-    FileUtils.rm_rf("#{event_directory}") if event_directory.strip != "" && event_directory.length > 12 #Tiny safeguard
+    
+    begin
+      FileUtils.rm this_video_file,     force: true
+      FileUtils.rm transcoded_filename, force: true
+      FileUtils.rm_rf("#{event_directory}") if event_directory.strip != "" && event_directory.length > 12 #Tiny safeguard
+    rescue StanderError => error
+      Rails.logger.debug "    Error removing files: #{error}"
+    end
+    
     self.update_attributes( processed: true )
 
     Rails.logger.debug "    Done with #{this_video_file}"
