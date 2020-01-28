@@ -17,7 +17,7 @@ cameras = [
 
 cameras.each do |camera|
   
-  (5..120).each do |d|
+  (3..120).each do |d|
     date = (Time.now - (d*86400)).strftime("%Y%m%d")
     
     cmd = "rm -rf /camserver_working/#{camera[:name]}/card_clone/#{camera[:id]}/record/#{date}*"
