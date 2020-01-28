@@ -9,7 +9,10 @@ cameras = [
   {name: "camera_7",  id: "FI9821W_00626E534AFA", type: "reolink" },
   {name: "camera_8",  id: "AMC0177J_NX0N71"     , type: "" },
   {name: "camera_9",  id: "FI9821P_00626E61951F", type: "" },
-  {name: "camera_10", id: "FI9821P_00626E618D22", type: "" }
+  {name: "camera_10", id: "FI9821P_00626E618D22", type: "" },
+  {name: "camera_11", id: "nil",                  type: "" },
+  {name: "camera_13", id: "nil",                  type: "" },
+  {name: "camera_15", id: "nil",                  type: "" },
  ]
 
 cameras.each do |camera|
