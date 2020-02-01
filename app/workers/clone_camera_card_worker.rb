@@ -110,7 +110,7 @@ class CloneCameraCardWorker
     Find.find(@clone_dir) do |f|
       begin
         if f[-4,4] == ".mp4"
-          
+          next unless File.new(f).size > 100000 #Skip tiny files. Sometimes bad data happens.
           event_time = File.new(f).mtime
           
           this_event_directory = @events_dir + '/' + event_time.strftime( "%Y-%m-%d_%H%M%S" )
@@ -126,6 +126,8 @@ class CloneCameraCardWorker
           FileUtils.mv f, "#{this_event_directory}/#{event_time.strftime( "%Y%m%d_%H%M%S" )}.mp4"
           
           ProcessEventWorker.perform_in( 10.seconds, @motion_event.id ) if @motion_event.present?
+        elsif f[-4,4] == ".jpg"
+          File.delete(f)
         end
       rescue Exception => ex
        Rails.logger.debug "    Error: #{ex.to_s}"
