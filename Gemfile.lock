@@ -167,7 +167,9 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (0.9.2)
-    mimemagic (0.3.3)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.13.0)
@@ -175,12 +177,12 @@ GEM
     net-scp (2.0.0)
       net-ssh (>= 2.6.5, < 6.0.0)
     net-ssh (5.2.0)
-    nio4r (2.5.2)
+    nio4r (2.5.8)
     nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
-    puma (4.3.1)
+    puma (5.6.2)
       nio4r (~> 2.0)
     rack (2.0.8)
     rack-test (1.1.0)
@@ -294,7 +296,7 @@ DEPENDENCIES
   kaminari!
   listen (~> 3.0.5)
   pg (~> 0.18, >= 0.18.4)
-  puma (~> 4.3)
+  puma (~> 5.6)
   rails (~> 5, >= 5.2.3)
   sassc-rails
   sidekiq
